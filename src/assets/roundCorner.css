@@ -1,0 +1,154 @@
+body {
+    background-color: #f8f8f8;
+}
+
+div {
+    font-size: 16px;
+}
+
+.button {
+    background-color: white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    padding: 5px 5px;
+    margin: 5px auto;
+    text-align: center;
+}
+
+.container {
+    /* background-color: #f8f8f8; */
+    /* padding: 5px; */
+    padding-bottom: 50px;
+}
+  
+.rc-infoCard {
+    background-color: white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    margin: 8px 0;
+}
+  
+.divLine {
+    width: 100%;
+    margin-top: 20px;
+    border-top: 1px solid rgba(196, 196, 196, 0.3);
+}
+  
+.rc-infoDetail {
+    padding: 10px 20px;
+    color: #3f3f3f;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 16px;
+}
+
+.rc-infoCard > .delete {
+    margin-left: auto;
+    margin-right: 10px;
+    /* padding: 10px 0px; */
+    color: red;
+    font-size: 16px;
+}
+
+.rc-infoDetail > .time {
+    color: #828282;
+    margin-left: auto;
+    font-weight: normal;
+    font-size: 12px;
+}
+  
+.onHover {
+    background-color: rgba(196, 196, 196, 0.2);
+}
+  
+  
+.rc-toPages {
+    padding: 30px;
+    color: #3f3f3f;
+    display: flex;
+    flex-direction: row;
+}
+    
+.rc-toPages::after {
+    content: '';
+    margin-top: 13px;
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    border-top: 1px solid #828282;
+    border-left: 1px solid #828282;
+    transform: rotate(135deg);
+    justify-self: end;
+}
+
+.description {
+    font-size: 15px;
+    text-align: center;
+    margin: 10px;
+    color:rgb(129, 129, 129)
+}
+
+#banner {
+    width: 40%;
+    display: flex;
+    margin: auto;
+    margin-top: 30px;
+}
+
+input, textarea {
+    border: 0px solid #b6b6b6;
+    width: auto;
+    font-size: 18px;
+    border-radius: 10px;
+    margin: 15px;
+    height: 200px;
+    text-align: left;
+}
+
+.open-input-leave-active,.open-input-enter-active {
+    transition: max-height 0.2s;
+}
+.open-input-enter,.open-input-leave-to {
+    max-height:0rem ;
+}
+.open-input-enter-to,.open-input-leave {
+    max-height: 10rem ;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #171717;
+    }
+    .container {
+        background-color: #171717;
+    }
+    .button {
+        background-color: #000000;
+    }
+
+    .rc-infoCard {
+        background-color: #000000;
+    }
+
+    .rc-infoDetail {
+        color: #f8f8f8;
+    }
+
+    input, textarea {
+        background-color: #000000;
+        color: #f8f8f8;
+    }
+    select {
+        background: #000000;
+        border: #000000;
+    }
+}
