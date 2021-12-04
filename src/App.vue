@@ -1,4 +1,16 @@
 <template>
+  <transition name="modal">
+    <div>
+      <div class="modal-bg" v-if="showModal" @click="closeQuote"></div>
+      <div class="quote-window" v-if="showModal" @click="modalQuoteAndReply">
+        <div class="rc-infoCard">
+          <div class="rc-infoDetail">
+            {{modalQuote}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <div class="container">
     <div style="display: flex; flex-direction: row">
@@ -25,6 +37,16 @@
 
     <transition name="open-input">
       <div class="inputBox" v-if="inputBoxShown">
+        <div v-if="replyQuote !== ''" @click="clearQuote">
+          <div class="rc-infoCard">
+            <div class="rc-infoDetail">
+            <div style="text-align:left; font-size:13px">
+                 You quoted: (Tap to cancel) <br> 
+                {{replyQuote}}
+            </div>
+            </div>
+          </div>
+        </div>
         <div class="description">choose your anonymous identity</div>
         <div class="description">
           <select v-model="identity">
@@ -67,9 +89,10 @@
         </div> -->
 
     <div v-for="(item, index) in msgList" :key="index">
-      <div class="rc-infoCard">
+      <div class="rc-infoCard" @click="quoteAndReply">
         <div class="delete">
           <div
+            class="deleteTouch"
             v-if="!onTrashPage"
             @click="clickOnDelete"
             :id="getForId(item._id)"
@@ -80,7 +103,12 @@
           <div v-else style="height: 20px"></div>
         </div>
         <div class="rc-infoDetail">
-          {{ item.msg }}
+          <div class="msg">
+            {{ item.msg }}
+          </div>
+          <div class="quoteMsg" v-if="item.quote_msg" @click="showQuote">
+          {{ item.quote_msg}}
+          </div>
           <div class="time" v-if="onTrashPage">
             ❌: {{ momentAgo(item.deleteTime) }}
           </div>
@@ -94,7 +122,7 @@
         </div>
       </div>
     </div>
-
+    <div v-if="!onTrashPage" class="button" @click="toggleGetMore">🔽</div>
     <div class="divLine"></div>
     <a href="https://www.afdian.net/@hi_keon">
       <img
@@ -111,6 +139,8 @@ import "@/assets/roundCorner.css";
 import "amfe-flexible";
 import axios from 'axios';
 import moment from 'moment';
+
+// const HOSTNAME = "http://10.200.68.152:3090";
 const HOSTNAME = "https://thewallengine.gallinula.com";
 
 export default {
@@ -135,6 +165,8 @@ export default {
         { value: "🏀" },
         { value: "🔥" },
       ],
+      allowOnHoverMsg: true,
+      showModal: false,
       postIsOnHover: false,
       submitIsOnHover: false,
       inputBoxShown: false,
@@ -144,9 +176,13 @@ export default {
       msgList: [],
       inputContent: "",
       timer: null,
+      modalQuote: "",
+      replyQuote: "",
+      afterTime: 0,
     };
   },
   mounted() {
+    // this.afterTime = new Date().toISOString();
     (() => {
       let random = Math.floor(Math.random() * this.options.length);
       this.identity = this.options[random].value;
@@ -157,6 +193,50 @@ export default {
     }, 1000 * 4);
   },
   methods: {
+    modalQuoteAndReply(e) {
+      if (this.onTrashPage || e.target.classList.contains("quoteMsg") || e.target.classList.contains("deleteTouch")) {
+        return
+      }
+      this.closeQuote();
+      this.replyQuote = this.modalQuote;
+      this.inputBoxShown = true;
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    toggleGetMore() {
+      this.getSomeMoreMsgs();
+    },
+    clearQuote () {
+      this.replyQuote = '';
+    },
+    quoteAndReply(e) {
+      // console.log(e.currentTarget)
+      if (this.onTrashPage || e.target.classList.contains("quoteMsg") || e.target.classList.contains("deleteTouch")) {
+        return
+      }
+      this.inputBoxShown = true;
+      this.replyQuote = e.currentTarget.querySelector(".rc-infoDetail .msg").innerText;
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+      // console.log(e.currentTarget.classList);
+      // let bgColor = e.currentTarget.style;
+      // console.log(bgColor);
+      // e.currentTarget.style.backgroundColor = "rgb(125,30,30)";
+    },
+    showQuote: function(e) {
+      // console.log(e.target);
+      this.showModal = true;
+      this.modalQuote = e.target.innerText;
+    },
+    closeQuote: function() {
+      this.showModal = false;
+    },
     momentAgo: function (e) {
       return moment(e).calendar();
     },
@@ -187,10 +267,12 @@ export default {
       axios
         .post(`${HOSTNAME}/post-msg`, {
           content: `${this.identity}: ${this.inputContent}`,
+          quote_msg: `${this.replyQuote}`,
         })
         .then(() => {
           this.getMsgs();
           this.inputContent = "";
+          this.replyQuote = "";
         });
     },
     clickOnDelete: function (e) {
@@ -206,15 +288,26 @@ export default {
     getForId: function (itemId) {
       return itemId;
     },
-
+    getSomeMoreMsgs: function () {
+      if (!this.onTrashPage) {
+        axios.get(`${HOSTNAME}/get-some-more-msgs?beforeTime=${this.afterTime}&num=10`).then((response) => {
+          console.log(response.data);
+          this.afterTime = response.data.data;
+          this.getMsgs();
+        })
+      }
+    },
     getMsgs: function () {
       if (this.onTrashPage == true) {
         axios.get(`${HOSTNAME}/get-trash`).then((response) => {
           this.msgList = response.data.data;
         });
       } else {
-        axios.get(`${HOSTNAME}/get-msgs`).then((response) => {
+        axios.get(`${HOSTNAME}/get-msgs?afterTime=${this.afterTime}`, ).then((response) => {
+          console.log("payload", response.data.data);
           this.msgList = response.data.data;
+          this.afterTime = response.data.data.at(-1).time;
+          console.log(this.afterTime);
         });
       }
     },
