@@ -13,6 +13,16 @@
   </transition>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <div class="container">
+    <div style="text-align:left" class="rc-infoCard">
+      <div class="rc-infoDetail">
+        <strong> 📣 Ad: Gallinula is now in open beta! <br> </strong> <br>
+        - 🗣 private message / group message <br>
+        - 💬 starting a topic & vote. Reply & Repost <br> 
+        - 📩 email notification <br>
+        - 🤩 (finally!!) mobile app supported <br> <br>
+        <a href="https://mp.weixin.qq.com/s/ju4JgQkTLeeXdoYhTkWz4Q"> Be sure to check this out! </a>
+      </div>
+    </div>
     <div style="display: flex; flex-direction: row">
       <div
         class="button"
@@ -291,7 +301,7 @@ export default {
     getSomeMoreMsgs: function () {
       if (!this.onTrashPage) {
         axios.get(`${HOSTNAME}/get-some-more-msgs?beforeTime=${this.afterTime}&num=10`).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           this.afterTime = response.data.data;
           this.getMsgs();
         })
@@ -304,10 +314,10 @@ export default {
         });
       } else {
         axios.get(`${HOSTNAME}/get-msgs?afterTime=${this.afterTime}`, ).then((response) => {
-          console.log("payload", response.data.data);
+          // console.log("payload", response.data.data);
           this.msgList = response.data.data;
           this.afterTime = response.data.data.at(-1).time;
-          console.log(this.afterTime);
+          // console.log(this.afterTime);
         });
       }
     },
