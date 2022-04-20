@@ -15,12 +15,16 @@
   <div class="container">
     <div style="text-align:left" class="rc-infoCard">
       <div class="rc-infoDetail">
-        <strong> 📣 Ad: Gallinula is now in open beta! <br> </strong> <br>
+        🤥 First Rule:
+        <strong> <center> Be respectful. </center> </strong>
+        <br>
+        
+        <!-- <strong> 📣 Ad: Gallinula is now in open beta! <br> </strong> <br>
         - 🗣 private message / group message <br>
         - 💬 starting a topic & vote. Reply & Repost <br> 
         - 📩 email notification <br>
         - 🤩 (finally!!) mobile app supported <br> <br>
-        <a href="https://mp.weixin.qq.com/s/ju4JgQkTLeeXdoYhTkWz4Q"> Be sure to check this out! </a>
+        <a href="https://mp.weixin.qq.com/s/ju4JgQkTLeeXdoYhTkWz4Q"> Be sure to check this out! </a> -->
       </div>
     </div>
     <div style="display: flex; flex-direction: row">
