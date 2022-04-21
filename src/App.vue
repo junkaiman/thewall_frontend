@@ -156,6 +156,15 @@ import moment from 'moment';
 
 // const HOSTNAME = "http://10.200.68.152:3090";
 const HOSTNAME = "https://thewallengine.gallinula.com";
+// const HOSTNAME = "http://localhost:3090";
+
+function getQueryString(name) { 
+  let reg = `(^|&)${name}=([^&]*)(&|$)`
+  let r = window.location.search.substr(1).match(reg); 
+  if (r != null) return unescape(r[2]); return null; 
+}
+
+
 
 export default {
   name: "App",
@@ -195,16 +204,32 @@ export default {
       afterTime: 0,
     };
   },
+  created() {
+    
+  },
   mounted() {
-    // this.afterTime = new Date().toISOString();
-    (() => {
-      let random = Math.floor(Math.random() * this.options.length);
-      this.identity = this.options[random].value;
-    })();
-    this.getMsgs();
-    this.timer = setInterval(() => {
+    let token = getQueryString('token');
+    if (token) {
+        (() => {
+        let random = Math.floor(Math.random() * this.options.length);
+        this.identity = this.options[random].value;
+      })();
       this.getMsgs();
-    }, 1000 * 4);
+      this.timer = setInterval(() => {
+        this.getMsgs();
+      }, 1000 * 4);  
+    }
+    else {
+      // window.location.href = `${HOSTNAME}/welcome.html`;
+      window.location.href = `https://thewall.gallinula.com/welcome.html`;
+    }
+    // let token = getQueryString('token');
+    // if (!token) {
+    //   window.location.href = `${HOSTNAME}/verify`;
+    // }
+    // console.log(token);
+    // this.afterTime = new Date().toISOString();
+    
   },
   methods: {
     modalQuoteAndReply(e) {
@@ -282,6 +307,7 @@ export default {
         .post(`${HOSTNAME}/post-msg`, {
           content: `${this.identity}: ${this.inputContent}`,
           quote_msg: `${this.replyQuote}`,
+          token: `${getQueryString('token')}`,
         })
         .then(() => {
           this.getMsgs();

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>the wall - verification</title>
+  </head>
+  <style>
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      color: #2c3e50;
+      background-color: #fafafa;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .emoji {
+      margin-top: 5rem;
+      font-size: 8rem;
+    }
+    .title {
+      /* width: 50%; */
+      /* margin-left: 30px; */
+      padding: 0 1.5rem;
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .serif {
+      font-size: 1rem;
+      font-family: Georgia, serif;
+      margin-top: 1.5rem;
+    }
+    .gallinula img {
+      max-width: 11rem;
+    }
+    .choices {
+      margin: 1.5rem auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .button {
+      background-color: white;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      width: 12rem;
+      border: 1px solid rgba(196, 196, 196, 0.3);
+      padding: 15px 15px;
+      margin: 5px auto;
+      text-align: center;
+    }
+  </style>
+  <script>
+      function login() {
+          window.location.href="https://thewallengine.gallinula.com/verify"
+      }
+      function signup() {
+          window.location.href="https://forum.gallinula.com/auth/sign_up"
+      }
+  </script>
+  <body>
+    <!-- <div> DKU - the wall </div> -->
+    <div class="emoji">😜</div>
+    <div class="hny">Wait a sec...</div>
+    <div class="title">
+      The first time? <br> <br>
+      We need to verify your membership<br />
+      
+      <!-- Are you at Gallinula? -->
+    </div>
+    
+    <div class="choices">
+      <div class="button" onclick="login()">Login via Gallinula</div>
+      <div class="button" onclick="signup()"> Sign up</div>
+    </div>
+    <div style="padding-bottom: 30px;"></div>
+    <div>
+    </div> 
+    <!-- <div class="serif">
+      You only need to login once
+      Check
+      <a href="https://mp.weixin.qq.com/s/ju4JgQkTLeeXdoYhTkWz4Q">here</a> to
+      know more about Gallinula
+    </div> -->
+    <hr style="margin: 2rem" />
+    <div class="gallinula">
+      <a href="https://www.afdian.net/@hi_keon">
+        <img
+          id="banner"
+          src="https://i.loli.net/2020/07/11/iUh6QFTXMormBnH.png"
+          alt=""
+        />
+      </a>
+    </div>
+  </body>
+</html>
