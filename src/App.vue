@@ -280,6 +280,7 @@ export default {
       return moment(e).calendar();
     },
     clickOnPost: function () {
+      window._paq.push(['setCustomDimension', 1, 'clickOnPost'])
       this.postIsOnHover = true;
       this.inputBoxShown = !this.inputBoxShown;
       setTimeout(() => {
@@ -294,10 +295,12 @@ export default {
     //   this.getMsgs()
     // },
     clickOnTrash: function () {
+      window._paq.push(['setCustomDimension', 1, 'clickOnTrash']);
       this.onTrashPage = !this.onTrashPage;
       this.getMsgs();
     },
     clickOnSubmit: function () {
+      window._paq.push(['setCustomDimension', 1, 'post-msg']);
       this.submitIsOnHover = true;
       setTimeout(() => {
         this.submitIsOnHover = false;
@@ -316,6 +319,7 @@ export default {
         });
     },
     clickOnDelete: function (e) {
+      window._paq.push(['setCustomDimension', 1, 'remove-msg']);
       axios
         .post(`${HOSTNAME}/remove-msg`, {
           msgId: e.target.id,
@@ -358,6 +362,8 @@ export default {
 <style>
 html {
   background-color: #f8f8f8;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
