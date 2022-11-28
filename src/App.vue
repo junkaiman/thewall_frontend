@@ -1,4 +1,5 @@
 <template>
+  
   <transition name="modal">
     <div>
       <div class="modal-bg" v-if="showModal" @click="closeQuote"></div>
@@ -17,14 +18,19 @@
       <div class="rc-infoDetail">
         🤥 First Rule:
         <strong> <center> Be respectful. </center> </strong>
+        <!-- <strong> <center> Keep It confidential. </center> </strong> -->
         <br>
-        
+        <!-- <div>
+          <div style="font-size: 0.3rem">Delete Paused: </div>
+          <div style="font-size: 0.3rem" id="showcountdown"></div>
+        </div> -->
         <!-- <strong> 📣 Ad: Gallinula is now in open beta! <br> </strong> <br>
         - 🗣 private message / group message <br>
         - 💬 starting a topic & vote. Reply & Repost <br> 
         - 📩 email notification <br>
         - 🤩 (finally!!) mobile app supported <br> <br>
         <a href="https://mp.weixin.qq.com/s/ju4JgQkTLeeXdoYhTkWz4Q"> Be sure to check this out! </a> -->
+        
       </div>
     </div>
     <div style="display: flex; flex-direction: row">
@@ -165,7 +171,6 @@ function getQueryString(name) {
 }
 
 
-
 export default {
   name: "App",
   components: {},
@@ -229,7 +234,14 @@ export default {
     // }
     // console.log(token);
     // this.afterTime = new Date().toISOString();
-    
+    // var show = document.getElementById("showcountdown");
+    // setInterval(function() {showTime(); }, 1000);
+    // function showTime() {
+    //   var time = 1669593600 -  new Date().getTime() / 1000;
+    //   var string = Math.round(time / 3600) + "h" + Math.round(time % 3600 / 60) + "m" + Math.round(time % 3600 % 60) + "s";
+    //   // show.innerHTML = Math.round(time);
+    //   show.innerHTML = string;
+    // }
   },
   methods: {
     modalQuoteAndReply(e) {
@@ -360,11 +372,11 @@ export default {
 </script>
 
 <style>
-html {
+/* html {
   background-color: #f8f8f8;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
-}
+} */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
